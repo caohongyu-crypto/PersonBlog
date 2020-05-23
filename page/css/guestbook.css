@@ -47,7 +47,58 @@
     padding-left: 10px;
     margin-top: 10px;
 }
+.send-comments{
+    background-color: #f5f5f5;
+    width: 96%;
+    border-radius: 5px;
+    padding: 10px 15px;
+    box-shadow: 3px 4px 3px rgba(0, 0, 0, .3);
+    text-align: left;
+    margin-top: 50px;
+}
 
+.send-comments input{
+    width: 300px;
+    height: 34px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    padding-left: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.send-comments textarea{
+    width: 90%;
+    height: 100px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.send-comments button{
+    width: 100px;
+    height: 30px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+}
+
+.send-comments button:hover{
+    background-color: #ddd;
+}
+
+.send-comments button:active{
+    background-color: #fdfdfd;
+}
 @media screen and (max-width:768px){
     body{
         overflow-x: hidden;

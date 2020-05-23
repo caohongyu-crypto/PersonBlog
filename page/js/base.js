@@ -52,3 +52,21 @@ var newComment = new Vue({
         ]
     }
 })
+
+
+var hanbor = document.getElementsByClassName('hanbor')[0];
+var menu = document.getElementsByClassName('menu')[0];
+hanbor.onclick = function(){
+    var attr = menu.getAttribute('style');
+    if(attr){
+        var arr = attr.split(': ');
+        if(arr[1] == 'block;'){
+            menu.style.display = 'none';
+        }else{
+            console.log('aa');
+            menu.style.display = 'block';
+        }
+    }else{
+        menu.style.display = 'block';
+    }
+}

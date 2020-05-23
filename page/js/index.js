@@ -21,34 +21,80 @@ var everyDay = new Vue({
     }
 })
 
-var articalList = new Vue({
+var articleList = new Vue({
     el:'#article-list',
     data:{
-        articleList:[
-            {
-                title:'四杀幽门螺杆菌',
-                content:'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore, unde, rem quisquam vel, doloremque et vero ullam amet a assumenda suscipit. Iusto adipisci explicabo voluptatum ab dolores numquam aliquid sequi!',
-                data:'2020-5-20',
-                views:"520",
-                tages:'幽门螺杆菌 萎缩性胃炎',
-                id:'1',
-                link:''
-            },
-            {
-                title:'四杀幽门螺杆菌',
-                content:'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore, unde, rem quisquam vel, doloremque et vero ullam amet a assumenda suscipit. Iusto adipisci explicabo voluptatum ab dolores numquam aliquid sequi!',
-                data:'2020-5-20',
-                views:"520",
-                tages:'幽门螺杆菌 萎缩性胃炎',
-                id:'2',
-                link:''
-            }
-        ]
+        page:1,
+        pageSize:5,
+        count:100,
+        pageNumList:[],
+        articleList:[]
     },
     computed:{
-
+        jumpTo(){//跳转页面
+            return function(page){
+                this.getPage(page, this.pageSize);
+            }
+        },
+        getPage(){
+            return function(page, pageSize){
+                axios({
+                    method:'get',
+                    url:'/queryBlogByPage?page=' + (page - 1) + '&pageSize=' + pageSize
+                }).then(resp => {
+                    var result = resp.data.data;
+                    var list = [];
+                    for(var i = 0; i < result.length; i++){
+                        var temp = {};
+                        temp.title = result[i].title;
+                        temp.content = result[i].content;
+                        temp.data = result[i].ctime;
+                        temp.views = result[i].views;
+                        temp.tages = result[i].tags;
+                        temp.id = result[i].id;
+                        temp.link = '/blog-detail.html?bid=' + result[i].id;
+                        list.push(temp);
+                    }
+                    this.articleList = list;
+                    this.page = page;
+                }).catch(resp => {
+                    console.log('请求错误');
+                })
+                axios({
+                    method:'get',
+                    url:'/queryBlogCount'
+                }).then(resp => {
+                    this.count = resp.data.data[0].count;
+                    this.gengeratePageTool;//生成翻页插件
+                })
+            }
+        },
+        gengeratePageTool(){
+            var nowPage = this.page;
+            var pageSize = this.pageSize;
+            var totalCount = this.count;
+            var result = [];
+            result.push({text:'首页', page:1});
+            if(nowPage > 2){
+                result.push({text:nowPage - 2, page:nowPage - 2});
+            }
+            if(nowPage > 1){
+                result.push({text:nowPage - 1, page:nowPage - 1});
+            }
+            result.push({text:nowPage, page:nowPage});
+            if(nowPage + 1 <= (totalCount + pageSize - 1) / pageSize){
+                result.push({text:nowPage + 1, page:nowPage + 1});
+            }
+            if(nowPage + 2 <= (totalCount + pageSize - 1) / pageSize){
+                result.push({text:nowPage + 2, page:nowPage + 2});
+            }
+            result.push({text:'尾页', page:parseInt((totalCount + pageSize - 1) / pageSize)})
+            this.pageNumList = result;
+            return result;
+        }
     },
     created(){
-
+        this.getPage(this.page, this.pageSize);
     }
 })
+

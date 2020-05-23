@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>鸿宇的博客/关于我</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./js/axios.js"></script>
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/about.css">
     <link rel="stylesheet" href="./css/animate.css">
@@ -48,69 +50,54 @@
                 <p>转载请注明地址</p>
                 <p>博客中不正确的地方欢迎指正</p>
             </div>
-            <div class="blog-comments">
-                <span class="blog-comments-msg">留言：目前有61条留言</span>
-                <div class="blog-comment">
-                    <span><b>chy</b>:发表于 2020年05月20日 13:14[回复]</span>
-                    <div>asadsdsdsdasasq</div>
+            <div class="blog-comments" id="blog-comments">
+                <span class="blog-comments-msg">当前留言：目前有{{total}}条留言</span>
+                <div class="blog-comment" v-for="comment in comments" :key="comment.id">
+                    <span><b>{{ comment.user_name }}</b>:{{ comment.options }} 发表于 {{ comment.ctime }} <a style="cursor: pointer;color:#f60;" @click="reply(comment.id, comment.user_name)">[回复]</a></span>
+                    <div>{{ comment.comments }}</div>
                 </div>
 
-                <div class="blog-comment">
-                    <span><b>chy</b>:发表于 2020年05月20日 13:14[回复]</span>
-                    <div>asadsdsdsdasasq</div>
+            </div>
+            <div class="send-comments" id="send-comments">
+                <span>发表评论</span>
+                <div>
+                    <input type="hidden" id="comment-reply" value="-1">
+                    <input type="hidden" id="comment-reply-name" value="0">
+                    <input type="text" placeholder="昵称" id="comment-name">
+                    <input type="text" placeholder="邮箱(评论被回复时您能收到通知)" id="comment-email">
                 </div>
-
-                <div class="blog-comment">
-                    <span><b>chy</b>:发表于 2020年05月20日 13:14[回复]</span>
-                    <div>asadsdsdsdasasq</div>
+                <div>
+                    <textarea id="comment-content" cols="30" rows="10" placeholder="无意义的内容我可能不会回复"></textarea>
+                    <div>
+                        <input type="text" placeholder="验证码(区分大小写)" id="comment-code">
+                        <span v-html="vcode" @click="changeCode"></span>
+                    </div>
+                    <button @click="sendComment()">提交评论</button>
                 </div>
             </div>
         </div>
         <div class="content-right animated fadeInRightBig">
-            <div class="right-module">
+            <div class="right-module" id="random-tags">
                 <div>随机标签云</div>
-                <a href="#">qwe</a>
-                <a href="#">rty</a>
-                <a href="#">zxc</a>
-                <a href="#">asd</a>
+                <a href="#" v-for="(tag, index) in tags" :key="index" :style="{color:randomColor(), fontSize:randomSize()}">{{ tag }}</a>
             </div>
 
-            <div class="right-module">
+            <div class="right-module" id="new-hot">
                 <div>最近热门</div>
                 <ul>
-                    <li><a href="#">查看你的AWS服务变量</a></li>
-                    <li><a href="#">查看你的AWS服务变量</a></li>
-                    <li><a href="#">查看你的AWS服务变量</a></li>
-                    <li><a href="#">查看你的AWS服务变量</a></li>
-                    <li><a href="#">查看你的AWS服务变量</a></li>
+                    <li v-for="(title, index) in titleList" :key="index"><a :href="title.link">{{ title.title }}</a></li>
                 </ul>
             </div>
 
-            <div class="right-module">
+            <div class="right-module" id="new-comment">
                 <div>最新评论</div>
                 <ul>
-                    <li>
+                    <li v-for="(comment, index) in commentList" :key="index">
                         <div>
-                            <span>用户名</span>
-                            <span class="pull-right">时间</span>
+                            <span>{{ comment.name }}</span>
+                            <span class="pull-right">{{ comment.data }}</span>
                         </div>
-                        <p>抱歉由于种种原因，本站不再连接至贵站</p>
-                    </li>
-
-                    <li>
-                        <div>
-                            <span>用户名</span>
-                            <span class="pull-right">时间</span>
-                        </div>
-                        <p>抱歉由于种种原因，本站不再连接至贵站</p>
-                    </li>
-
-                    <li>
-                        <div>
-                            <span>用户名</span>
-                            <span class="pull-right">时间</span>
-                        </div>
-                        <p>抱歉由于种种原因，本站不再连接至贵站</p>
+                        <p>{{ comment.comment }}</p>
                     </li>
                 </ul>
             </div>
@@ -141,5 +128,8 @@
         </ul>
         <p>Copyright @ 2010-2017 啥啥开始讲阿里萨</p>
     </footer>
+
+    <script src="./js/about.js"></script>
+    <script src="./js/base.js"></script>
 </body>
 </html>

@@ -6,6 +6,34 @@ var respUtil = require('../util/respUtil');
 var url = require('url');
 var path = new Map();
 
+function queryBlogById(request, response){
+    var params = url.parse(request.url, true).query;
+    blogDao.queryBlogById(parseInt(params.bid), result => {
+        //成功之后返回的提示信息
+        response.writeHead(200);
+        response.write(respUtil.writeResult('success', '查询成功', result));
+        response.end();
+    })
+}
+
+path.set('/queryBlogById', queryBlogById);
+
+
+function queryBlogByPage(request, response){
+    var params = url.parse(request.url, true).query;
+    blogDao.queryBlogByPage(parseInt(params.page), parseInt(params.pageSize), result => {
+        for(var i = 0; i < result.length; i++){
+            result[i].content = result[i].content.replace(/(\!\[\])(\([\w\W]*[\)])/g, '');
+            result[i].content = result[i].content.replace(/<[\w\W]*>/g, '');
+            result[i].content = result[i].content.substring(0, 300);
+        }
+        response.writeHead(200);
+        response.write(respUtil.writeResult('success', '查询成功', result));
+        response.end();
+    })
+}
+
+path.set('/queryBlogByPage', queryBlogByPage);
 
 function editBlog(request, response){
     var params = url.parse(request.url, true).query;
@@ -28,6 +56,17 @@ function editBlog(request, response){
 }
 
 path.set('/editBlog', editBlog);
+
+//查询博客总数的函数
+function queryBlogCount(request, response){
+    blogDao.queryBlogCount(result => {
+        response.writeHead(200);
+        response.write(respUtil.writeResult('success', '添加成功', result));
+        response.end();
+    })
+}
+
+path.set('/queryBlogCount', queryBlogCount);
 
 //查找标签
 function queryTag(tag, blogId){

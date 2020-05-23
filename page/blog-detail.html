@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>鸿宇的博客</title>
     <link rel="stylesheet" href="./css/base.css">
-    <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/animate.css">
+    <link rel="stylesheet" href="./css/blog-detail.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="./js/axios.js"></script>
 </head>
@@ -33,25 +33,36 @@
     </header>
     <div class="content">
         <div class="content-left">
-            <div class="evear-day animated slideInDown" id="every-day">
-                <span>每日一句<i class="iconfont laba">&#xe642;</i></span>
-                <p v-html="getContent"></p>
+            <div class="blog" id="blog-detail">
+                <div class="blog-title">{{title}}</div>
+                <div class="blog-msg">作者：曹鸿宇 标签：{{tags}} 发布于：{{ctime}} 浏览：({{ views }})</div>
+                <div class="blog-content" v-html="content"></div>
             </div>
-            <div class="article-list animated fadeInLeftBig" id="article-list">
-                <div class="article" v-for="article in articleList" :key="article.id">
-                    <a :href="article.link" class="article-title">{{ article.title }}</a>
-                    <p class="article-content">
-                        {{ article.content }}
-                    </p>
-                    <div class="article-foot">发布于{{ article.data }} | 浏览({{ article.views }}) | Tags：{{ article.tages }}</div>
+
+            <div class="blog-comments" id="blog-comments">
+                <span class="blog-comments-msg">当前文章：目前有{{total}}条留言</span>
+                <div class="blog-comment" v-for="comment in comments" :key="comment.id">
+                    <span><b>{{ comment.user_name }}</b>:{{ comment.options }} 发表于 {{ comment.ctime }} <a style="cursor: pointer;color:#f60;" @click="reply(comment.id, comment.user_name)">[回复]</a></span>
+                    <div>{{ comment.comments }}</div>
                 </div>
-                <div class="page-tool">
-                    <ul>
-                        <li v-for="(pageNum, index) in pageNumList" 
-                        :key="index" 
-                        @click="jumpTo(pageNum.page)"
-                        :class="{now_page:(pageNum.text == page)}">{{ pageNum.text }}</li>
-                    </ul>
+
+            </div>
+
+            <div class="send-comments" id="send-comments">
+                <span>发表评论</span>
+                <div>
+                    <input type="hidden" id="comment-reply" value="-1">
+                    <input type="hidden" id="comment-reply-name" value="0">
+                    <input type="text" placeholder="昵称" id="comment-name">
+                    <input type="text" placeholder="邮箱(评论被回复时您能收到通知)" id="comment-email">
+                </div>
+                <div>
+                    <textarea id="comment-content" cols="30" rows="10" placeholder="无意义的内容我可能不会回复"></textarea>
+                    <div>
+                        <input type="text" placeholder="验证码(区分大小写)" id="comment-code">
+                        <span v-html="vcode" @click="changeCode"></span>
+                    </div>
+                    <button @click="sendComment()">提交评论</button>
                 </div>
             </div>
         </div>
@@ -108,7 +119,7 @@
         <p>Copyright @ 2010-2017 啥啥开始讲阿里萨</p>
     </footer>
 
-    <script src="./js/index.js"></script>
+    <script src="./js/blog-detail.js"></script>
     <script src="./js/base.js"></script>
 </body>
 </html>

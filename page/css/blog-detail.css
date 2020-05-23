@@ -1,61 +1,46 @@
-.description{
+.blog{
     background-color: #fff;
     width: 96%;
     border-radius: 5px;
-    padding: 10px 15px 20px 15px;
-    box-shadow: 3px 4px 5px rgba(0, 0, 0, .3);
+    padding: 10px 15px;
+    box-shadow: 3px 4px 3px rgba(0, 0, 0, .3);
     text-align: left;
 }
 
-.about-title{
-    width: 95%;
-    font-size: 20px;
+.blog-title{
+    font-size: 24px;
     font-weight: 600;
-    padding: 10px 20px;
-    margin: 20px 0px 20px 0px;
-    border-bottom: 1px solid #b9b9b9;
 }
 
-.description p{
-    margin-top: 5px;
-    padding: 0px 0px 0px 10px;
+.blog-msg{
+    padding-top: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #000;
 }
 
-.blog-comments{
-    width: 100%;
+.blog-content{
+    padding: 0px 10px 20px 10px;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+}
+img{
+    max-width:100%;
+    margin: 15px 0;
 }
 
-.blog-comments-msg{
-    margin-top: 20px;
-    padding: 10px;
-    display: inline-block;
-    width: 100%;
-    text-align: left;
+/* makdown编辑器样式 */
+.editormd-toolbar{
+    display: none !important;
 }
 
-.blog-comment{
-    width: 95%;
-    background-color: #d9edf7;
-    border: 1px dashed #7ca4c1;
-    padding: 10px 10px 20px 10px;
-    margin-top: 10px;
-    color: #31708f;
-    text-align: left;
+.CodeMirror {
+    display: none !important;
 }
 
-.blog-comment span{
-    display: inline-block;
-    width: 100%;
-    padding-left: 10px;
+.editormd-preview{
+    width: 100% !important;
 }
-
-.blog-comment div{
-    display: inline-block;
-    width: 100%;
-    padding-left: 10px;
-    margin-top: 10px;
-}
-
 .send-comments{
     background-color: #f5f5f5;
     width: 96%;
@@ -108,14 +93,38 @@
 .send-comments button:active{
     background-color: #fdfdfd;
 }
-@media screen and (max-width:768px){
-    body{
-        overflow-x: hidden;
-    }
-    .content{
-        width: 760px;
-    }
-    .content-right{
-        display: none;
-    }
+
+.blog-comments{
+    width: 100%;
+}
+
+.blog-comments-msg{
+    margin-top: 20px;
+    padding: 10px;
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+}
+
+.blog-comment{
+    width: 95%;
+    background-color: #d9edf7;
+    border: 1px dashed #7ca4c1;
+    padding: 10px 10px 20px 10px;
+    margin-top: 10px;
+    color: #31708f;
+    text-align: left;
+}
+
+.blog-comment span{
+    display: inline-block;
+    width: 100%;
+    padding-left: 10px;
+}
+
+.blog-comment div{
+    display: inline-block;
+    width: 100%;
+    padding-left: 10px;
+    margin-top: 10px;
 }
