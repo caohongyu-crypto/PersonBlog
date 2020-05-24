@@ -1,7 +1,7 @@
 var randomTags = new Vue({
     el:'#random-tags',
     data:{
-        tags:['asd', 'qwe', 'fwe', 'zxc', 'sasa', 'wres', 'canvas','asd', 'qwe', 'fwe', 'zxc', 'sasa', 'wres', 'canvas', 'canvas','asd', 'qwe', 'fwe', 'zxc', 'sasa', 'wres', 'canvas']
+        tags:[]
     },
     computed:{
         randomColor(){
@@ -20,36 +20,48 @@ var randomTags = new Vue({
         }
     },
     created(){
-
+        axios({
+            method:'get',
+            url:'/queryRandomTags'
+        }).then(resp => {
+            for(let i = 0; i < resp.data.data.length; i++){
+                resp.data.data[i].link = '/?tag=' + resp.data.data[i].tag;
+            }
+            this.tags = resp.data.data;
+        })
     }
 })
 
 var newHot = new Vue({
     el:'#new-hot',
     data:{
-        titleList:[
-            {title:'这是一个连接', link:'https://www.baidu.com'},
-            {title:'这是一个连接', link:'https://www.baidu.com'},
-            {title:'这是一个连接', link:'https://www.baidu.com'},
-            {title:'这是一个连接', link:'https://www.baidu.com'},
-            {title:'这是一个连接', link:'https://www.baidu.com'},
-            {title:'这是一个连接', link:'https://www.baidu.com'},
-            {title:'这是一个连接', link:'https://www.baidu.com'}
-        ]
+        titleList:[]
+    },
+    created(){
+        axios({
+            method:'get',
+            url:'/queryHotBlog'
+        }).then(resp => {
+            for(let i = 0; i < resp.data.data.length; i++){
+                resp.data.data[i].link = '/blog-detail.html?bid=' + resp.data.data[i].id;
+            }
+            this.titleList = resp.data.data;
+        })
     }
 })
 
 var newComment = new Vue({
     el:'#new-comment',
     data:{
-        commentList:[
-            {name:'用户名', data:'2020-5-20', comment:'这里是一大串评论'},
-            {name:'用户名', data:'2020-5-20', comment:'这里是一大串评论'},
-            {name:'用户名', data:'2020-5-20', comment:'这里是一大串评论'},
-            {name:'用户名', data:'2020-5-20', comment:'这里是一大串评论'},
-            {name:'用户名', data:'2020-5-20', comment:'这里是一大串评论'},
-            {name:'用户名', data:'2020-5-20', comment:'这里是一大串评论'}
-        ]
+        commentList:[]
+    },
+    created(){
+        axios({
+            method:'get',
+            url:'/queryNewComment'
+        }).then(resp => {
+            this.commentList = resp.data.data;
+        })
     }
 })
 

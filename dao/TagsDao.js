@@ -1,5 +1,5 @@
 var dbutil = require('./DButil');
-
+//tag的controller在blogController中 ***
 function insertTag(tag, ctime, utime, success){
     var insertSql = "insert into tags (`tag`, `ctime`, `utime`) values(?, ?, ?)";
     var params = [tag, ctime, utime];
@@ -35,6 +35,7 @@ function queryTag(tag, success){
     connection.end();
 
 }
+
 
 module.exports.insertTag = insertTag;
 module.exports.queryTag = queryTag;

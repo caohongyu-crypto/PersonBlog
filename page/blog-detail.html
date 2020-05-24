@@ -69,7 +69,7 @@
         <div class="content-right animated fadeInRightBig">
             <div class="right-module" id="random-tags">
                 <div>随机标签云</div>
-                <a href="#" v-for="(tag, index) in tags" :key="index" :style="{color:randomColor(), fontSize:randomSize()}">{{ tag }}</a>
+                <a v-for="(tag, index) in tags" :key="index" :href="tag.link" :style="{color:randomColor(), fontSize:randomSize()}">{{ tag.tag }}</a>
             </div>
 
             <div class="right-module" id="new-hot">
@@ -84,10 +84,10 @@
                 <ul>
                     <li v-for="(comment, index) in commentList" :key="index">
                         <div>
-                            <span>{{ comment.name }}</span>
-                            <span class="pull-right">{{ comment.data }}</span>
+                            <span>{{ comment.user_name }}</span>
+                            <span class="pull-right">{{ comment.ctime }}</span>
                         </div>
-                        <p>{{ comment.comment }}</p>
+                        <p>{{ comment.comments }}</p>
                     </li>
                 </ul>
             </div>
@@ -102,7 +102,7 @@
             </div>
         </div>
     </div>
-    <footer class="footer">
+    <footer class="footer animated fadeInLeft">
         <ul>
             <li>技术:</li>
             <li>JavaScript</li>

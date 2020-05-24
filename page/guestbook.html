@@ -32,7 +32,7 @@
         </div>
     </header>
     <div class="content">
-        <div class="content-left">
+        <div class="content-left animated fadeInLeftBig">
             <div class="description">
                 <p>欢迎灌水交流，别看我长时间不发博，博主可一直在线~~</p>
                 <p style="color: #66CDAA;">友链只交换技术类个人博客</p>
@@ -68,7 +68,7 @@
         <div class="content-right animated fadeInRightBig">
             <div class="right-module" id="random-tags">
                 <div>随机标签云</div>
-                <a href="#" v-for="(tag, index) in tags" :key="index" :style="{color:randomColor(), fontSize:randomSize()}">{{ tag }}</a>
+                <a v-for="(tag, index) in tags" :key="index" :href="tag.link" :style="{color:randomColor(), fontSize:randomSize()}">{{ tag.tag }}</a>
             </div>
 
             <div class="right-module" id="new-hot">
@@ -83,10 +83,10 @@
                 <ul>
                     <li v-for="(comment, index) in commentList" :key="index">
                         <div>
-                            <span>{{ comment.name }}</span>
-                            <span class="pull-right">{{ comment.data }}</span>
+                            <span>{{ comment.user_name }}</span>
+                            <span class="pull-right">{{ comment.ctime }}</span>
                         </div>
-                        <p>{{ comment.comment }}</p>
+                        <p>{{ comment.comments }}</p>
                     </li>
                 </ul>
             </div>
@@ -101,7 +101,7 @@
             </div>
         </div>
     </div>
-    <footer class="footer">
+    <footer class="footer animated fadeInLeft">
         <ul>
             <li>技术:</li>
             <li>JavaScript</li>

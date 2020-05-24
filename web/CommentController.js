@@ -52,4 +52,15 @@ function queryCommentsCountByBolgId(request, response){
 
 path.set('/queryCommentsCountByBolgId', queryCommentsCountByBolgId);
 
+//查询最新热门
+function queryNewComment(request, response){
+    commentDao.queryNewComment(5, result => {
+        response.writeHead(200);
+        response.write(respUtil.writeResult('success', '查询成功', result));
+        response.end();
+    })
+}
+
+path.set('/queryNewComment', queryNewComment);
+
 module.exports.path = path;

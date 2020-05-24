@@ -32,6 +32,25 @@ app.get('/queryCommentByBlogId', loader.get('/queryCommentByBlogId'))
 //获取博客所有留言
 app.get('/queryCommentsCountByBolgId', loader.get('/queryCommentsCountByBolgId'))
 
+//获取所有博客
+app.get('/queryAllBlog', loader.get('/queryAllBlog'))
+
+//获取所有标签
+app.get('/queryRandomTags', loader.get('/queryRandomTags'))
+
+//获取热门博客
+app.get('/queryHotBlog', loader.get('/queryHotBlog'))
+
+//获取最新评论
+app.get('/queryNewComment', loader.get('/queryNewComment'))
+
+//根据标签获取博客
+app.get('/queryByTag', loader.get('/queryByTag'))
+
+//根据标签获取博客数量
+app.get('/queryByTagCount', loader.get('/queryByTagCount'))
+
+
 app.listen(globalConfig.port, () => {
     console.log('服务已经启动');
 })

@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>鸿宇的博客/地图</title>
     <link rel="stylesheet" href="./css/sitemap.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./js/axios.js"></script>
 </head>
 <body>
     <div class="title">个人博客’s SiteMap</div>
     <div class="link"><a href="./index.html"><b>博客首页</b></a>》站点地图</div>
-    <div class="blog-list">
+    <div class="blog-list" id="blog-list">
         <span>最新文章</span>
         <ul>
-            <li><a href="#">四连杀幽门螺杆菌第三天</a></li>
-            <li><a href="#">四连杀幽门螺杆菌第三天</a></li>
-            <li><a href="#">四连杀幽门螺杆菌第三天</a></li>
-            <li><a href="#">四连杀幽门螺杆菌第三天</a></li>
-            <li><a href="#">四连杀幽门螺杆菌第三天</a></li>
+            <li v-for="(blog , index) in blogList" :key="index"><a :href="blog.link" target="_blank">{{ blog.title }}</a></li>
         </ul>
     </div>
+
+    <script src="./js/sitemap.js"></script>
 </body>
 </html>
