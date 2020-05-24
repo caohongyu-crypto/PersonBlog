@@ -50,6 +50,9 @@ app.get('/queryByTag', loader.get('/queryByTag'))
 //根据标签获取博客数量
 app.get('/queryByTagCount', loader.get('/queryByTagCount'))
 
+//搜索博客
+// app.get('/queryBlogByValue', loader.get('/queryBlogByValue'))
+
 
 app.listen(globalConfig.port, () => {
     console.log('服务已经启动');

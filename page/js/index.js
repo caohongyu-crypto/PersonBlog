@@ -81,7 +81,6 @@ var articleList = new Vue({
                         this.gengeratePageTool;//生成翻页插件
                     })
                 }else{//根据tag查询
-                    console.log(tag);
                     axios({
                         method:'get',
                         url:'/queryByTag?page=' + (page - 1) + '&pageSize=' + pageSize + '&tag=' + tag

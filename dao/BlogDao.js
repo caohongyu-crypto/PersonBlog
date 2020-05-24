@@ -146,6 +146,7 @@ function queryRandomTags(success){
 
 }
 
+
 module.exports.insertBlog = insertBlog;
 module.exports.queryBlogByPage = queryBlogByPage;
 module.exports.queryBlogCount = queryBlogCount;
