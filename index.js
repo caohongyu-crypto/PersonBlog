@@ -51,7 +51,8 @@ app.get('/queryByTag', loader.get('/queryByTag'))
 app.get('/queryByTagCount', loader.get('/queryByTagCount'))
 
 //搜索博客
-// app.get('/queryBlogByValue', loader.get('/queryBlogByValue'))
+app.get('/queryBlogByValue', loader.get('/queryBlogByValue'))
+
 
 
 app.listen(globalConfig.port, () => {

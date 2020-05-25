@@ -6,6 +6,24 @@ var respUtil = require('../util/respUtil');
 var url = require('url');
 var path = new Map();
 
+//搜索查询博客
+function queryBlogByValue(request, response){
+    var params = url.parse(request.url, true).query;
+    blogDao.queryBlogByValue(params.value, result => {
+        for(var i = 0; i < result.length; i++){
+            result[i].content = result[i].content.replace(/(\!\[\])(\([\w\W]*[\)])/g, '');
+            // result[i].content = result[i].content.replace(/<[\w\W]*>/g, '');
+            result[i].content = result[i].content.substring(152, 300);
+        }
+        response.writeHead(200);
+        response.write(respUtil.writeResult('success', '查询成功', result));
+        response.end();
+    })
+}
+
+path.set('/queryBlogByValue', queryBlogByValue);
+
+
 //查询所有博客
 function queryAllBlog(request, response){
     blogDao.queryAllBlog(result => {

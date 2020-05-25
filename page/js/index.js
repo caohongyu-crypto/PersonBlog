@@ -21,6 +21,8 @@ var everyDay = new Vue({
     }
 })
 
+window.listArr = [];
+
 var articleList = new Vue({
     el:'#article-list',
     data:{
@@ -28,7 +30,8 @@ var articleList = new Vue({
         pageSize:5,
         count:100,
         pageNumList:[],
-        articleList:[]
+        articleList:[],
+        inpValue:''
     },
     computed:{
         jumpTo(){//跳转页面
@@ -111,6 +114,32 @@ var articleList = new Vue({
                         this.gengeratePageTool;//生成翻页插件
                     })
                 }
+
+                //搜索模块  
+                if(this.inpValue != ''){
+                    axios({
+                        method:'get',
+                        url:'/queryBlogByValue?value=' + this.inpValue
+                    }).then(resp => {
+                        var result = resp.data.data;
+                        var list = [];
+                        for(var i = 0; i < result.length; i++){
+                            var temp = {};
+                            temp.title = result[i].title;
+                            temp.content = result[i].content;
+                            temp.data = result[i].ctime;
+                            temp.views = result[i].views;
+                            temp.tages = result[i].tags;
+                            temp.id = result[i].id;
+                            temp.link = '/blog-detail.html?bid=' + result[i].id;
+                            list.push(temp);
+                        }
+                        this.articleList = list;
+                        this.page = page;
+                    }).catch(resp => {
+                        console.log('请求错误');
+                    })
+                }
                 
             }
         },
@@ -140,6 +169,39 @@ var articleList = new Vue({
     },
     created(){
         this.getPage(this.page, this.pageSize);
+    },
+    mounted(){
+        var btn = document.getElementById('search-btn');
+        btn.onclick = () => {
+            var inpValue = document.getElementById('search-inp').value;
+            this.inpValue = inpValue;
+            this.getPage(this.page, this.pageSize)
+        }
     }
 })
 
+
+// //搜索框获取博客
+// var searchBlog = new Vue({
+//     el:'#search-bar',
+//     data:{
+//         page:1,
+//         pageSize:5,
+//         count:100,
+//         pageNumList:[],
+//         articleList:[],
+        
+//     },
+//     methods:{
+//         searchBlog(){
+//             this.getPage(this.page, this.pageSize);
+//         }
+//     },
+//     computed:{
+//         getPage(){
+//             return function(page, pageSize){
+                
+//             }
+//         }
+//     }
+// })

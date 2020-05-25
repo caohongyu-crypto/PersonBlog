@@ -146,6 +146,24 @@ function queryRandomTags(success){
 
 }
 
+//搜索查询博客
+function queryBlogByValue(value, success){
+    var querySql = "select * from blog where title like '%"+ value +"%'";
+    var params = [value];
+
+    var connection = dbutil.createConnection();
+    connection.connect();
+    connection.query(querySql, params, (error, result) => {
+        if(error == null){
+            success(result);
+        }else{
+            throw new Error(error);
+        }
+    })
+    connection.end();
+}
+
+
 
 module.exports.insertBlog = insertBlog;
 module.exports.queryBlogByPage = queryBlogByPage;
@@ -155,5 +173,6 @@ module.exports.queryAllBlog = queryAllBlog;
 module.exports.queryRandomTags = queryRandomTags
 module.exports.addViews = addViews
 module.exports.queryHotBlog = queryHotBlog
+module.exports.queryBlogByValue = queryBlogByValue;
 
 
