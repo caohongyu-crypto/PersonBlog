@@ -19,7 +19,7 @@
   "homepage": "https://github.com/caohongyu-crypto/PersonBlog#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "moment": "^2.26.0",
+    "moment": "^2.29.2",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
     "sequelize": "^5.21.10",
